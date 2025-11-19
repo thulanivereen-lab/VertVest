@@ -1,7 +1,7 @@
+import { CYAN, CYAN_DARK, TOTHEMOON } from "@/appThemes/colors";
 import { LinearGradient } from "expo-linear-gradient";
 import React from "react";
 import { Image, Pressable, Text, View } from "react-native";
-import { CYAN, CYAN_DARK, TOTHEMOON } from "../../../appThemes/colors";
 import { makeStyles } from "./GalleryRow.styles";
 import { GalleryRowItemProps } from "./GalleryRow.types";
 

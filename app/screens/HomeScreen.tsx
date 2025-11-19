@@ -1,8 +1,8 @@
+import FloatingTabHeader from '@/components/appHeader/floatingTabHeader';
+import GalleryRow from '@/components/home/GalleryRow/GalleryRow';
+import SpotlightCard from '@/components/home/SpotlightCard/SpotlightCard';
 import React from 'react';
 import { ScrollView, View } from 'react-native';
-import FloatingTabHeader from '../components/appHeader/floatingTabHeader';
-import GalleryRow from '../components/home/GalleryRow/GalleryRow';
-import SpotlightCard from '../components/home/SpotlightCard/SpotlightCard';
 import { makeStyles } from './HomeScreen.styles';
 
 const HomeScreen: React.FC = () => {

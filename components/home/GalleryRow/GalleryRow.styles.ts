@@ -1,4 +1,4 @@
-import { CYAN, CYAN_DARK } from "@/app/appThemes/colors";
+import { CYAN, CYAN_DARK } from "@/appThemes/colors";
 import { StyleSheet } from "react-native";
 
 export const makeStyles = () => 

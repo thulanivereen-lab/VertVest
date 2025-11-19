@@ -6,6 +6,11 @@ export interface GalleryItem {
   percentChange: number;
 }
 
+export interface GalleryRowItemProps {
+    item: GalleryItem;
+    index: number;
+}
+
 export interface GalleryRowProps {
   title: string;
   items: GalleryItem[];

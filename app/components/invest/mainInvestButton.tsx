@@ -5,9 +5,14 @@ import { makeStyles } from './mainInvestButton.styles';
 
 
 const styles = makeStyles();
-const MainInvestButton: React.FC = () => {
+
+interface MainInvestButtonProps {
+  onPress?: () => void;
+}
+
+const MainInvestButton: React.FC<MainInvestButtonProps> = ({ onPress }) => {
     return (
-        <TouchableOpacity style={styles.investButton}>
+        <TouchableOpacity style={styles.investButton} onPress={onPress}>
             <IconSymbol size={16} color="#808080" name="arrow.up.right" />
             <Text style={styles.investText}>Invest $4.50</Text>
         </TouchableOpacity>

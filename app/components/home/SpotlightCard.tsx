@@ -3,15 +3,18 @@ import React from 'react';
 import { ImageBackground, ScrollView, Text, View } from 'react-native';
 import MainInvestButton from '../invest/mainInvestButton';
 import MainWatchButton from '../watch/mainWatchButton';
-import { makeStyles } from './SpotlightShow.styles';
+import { makeStyles } from './SpotlightCard.styles';
+import type { SpotlightCardProps } from './SpotlightCard.types';
 
-const SpotlightShow: React.FC = () => {
+const SpotlightCard: React.FC<SpotlightCardProps> = ({ data = {}, onWatch, onInvest, testID }) => {
     const styles = makeStyles();
-    const imageUri = 'https://picsum.photos/200/300';
-    const title = "It’s Florida, Man.";
-    const subtitle = "Season 2 Premieres November 28";
-    const meta = "TV-MA • 1 Season";
-    const description = "All the gators, all the glory. Catch up before the madness multiplies.";
+    const {
+      imageUri = 'https://picsum.photos/200/300',
+      title = "It’s Florida, Man.",
+      subtitle = "Season 2 Premieres November 28",
+      meta = "TV-MA • 1 Season",
+      description = "All the gators, all the glory. Catch up before the madness multiplies.",
+    } = data;
     return (
         <ScrollView
                 showsVerticalScrollIndicator={false}
@@ -39,13 +42,13 @@ const SpotlightShow: React.FC = () => {
                     {description}
                   </Text>
         
-                  <View style={styles.ctaRow}>
-                    <MainWatchButton />
-                    <MainInvestButton />
+                  <View style={styles.ctaRow} testID={testID}>
+                    <MainWatchButton onPress={onWatch} />
+                    <MainInvestButton onPress={onInvest} />
                   </View>
                 </View>
               </ScrollView>
     )
 }
 
-export default SpotlightShow;
+export default SpotlightCard;

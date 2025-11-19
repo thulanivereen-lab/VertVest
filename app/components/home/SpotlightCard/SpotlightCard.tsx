@@ -1,10 +1,10 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import React from 'react';
 import { ImageBackground, ScrollView, Text, View } from 'react-native';
-import MainInvestButton from '../invest/mainInvestButton';
-import MainWatchButton from '../watch/mainWatchButton';
+import MainInvestButton from '../../invest/mainInvestButton';
+import MainWatchButton from '../../watch/mainWatchButton';
+import type { SpotlightCardProps } from '../SpotlightCard.types';
 import { makeStyles } from './SpotlightCard.styles';
-import type { SpotlightCardProps } from './SpotlightCard.types';
 
 const SpotlightCard: React.FC<SpotlightCardProps> = ({ data = {}, onWatch, onInvest, testID }) => {
     const styles = makeStyles();

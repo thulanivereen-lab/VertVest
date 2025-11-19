@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import FloatingTabHeader from '../components/appHeader/floatingTabHeader';
-import SpotlightCard from '../components/home/SpotlightCard';
+import SpotlightCard from '../components/home/SpotlightCard/SpotlightCard';
 import { makeStyles } from './HomeScreen.styles';
 
 const HomeScreen: React.FC = () => {

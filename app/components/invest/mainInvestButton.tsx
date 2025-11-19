@@ -8,9 +8,9 @@ const styles = makeStyles();
 const MainInvestButton: React.FC = () => {
     return (
         <TouchableOpacity style={styles.investButton}>
-                      <IconSymbol size={16} color="#808080" name="arrow.up.right" />
-                      <Text style={styles.investText}>Invest $4.50</Text>
-                    </TouchableOpacity>
+            <IconSymbol size={16} color="#808080" name="arrow.up.right" />
+            <Text style={styles.investText}>Invest $4.50</Text>
+        </TouchableOpacity>
     )
 }
 

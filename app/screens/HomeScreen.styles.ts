@@ -12,4 +12,7 @@ export const makeStyles = () =>
             left: 0,
             right: 0,
         },
+        gallerySection: {
+            marginTop: 24,
+        },
     });

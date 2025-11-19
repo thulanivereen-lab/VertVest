@@ -1,10 +1,10 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import React from 'react';
-import { ImageBackground, ScrollView, Text, View } from 'react-native';
+import { ImageBackground, Text, View } from 'react-native';
 import MainInvestButton from '../../invest/mainInvestButton';
 import MainWatchButton from '../../watch/mainWatchButton';
-import type { SpotlightCardProps } from '../SpotlightCard.types';
 import { makeStyles } from './SpotlightCard.styles';
+import type { SpotlightCardProps } from './SpotlightCard.types';
 
 const SpotlightCard: React.FC<SpotlightCardProps> = ({ data = {}, onWatch, onInvest, testID }) => {
     const styles = makeStyles();
@@ -16,10 +16,7 @@ const SpotlightCard: React.FC<SpotlightCardProps> = ({ data = {}, onWatch, onInv
       description = "All the gators, all the glory. Catch up before the madness multiplies.",
     } = data;
     return (
-        <ScrollView
-                showsVerticalScrollIndicator={false}
-                contentContainerStyle={{ paddingBottom: 80 }}
-              >
+        <View>
                 {/* Spotlight image */}
                 <ImageBackground
                   source={{ uri: imageUri }}
@@ -47,7 +44,7 @@ const SpotlightCard: React.FC<SpotlightCardProps> = ({ data = {}, onWatch, onInv
                     <MainInvestButton onPress={onInvest} />
                   </View>
                 </View>
-              </ScrollView>
+            </View>
     )
 }
 

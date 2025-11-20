@@ -6,15 +6,16 @@ import MainWatchButton from '../../watch/mainWatchButton';
 import { makeStyles } from './SpotlightCard.styles';
 import type { SpotlightCardProps } from './SpotlightCard.types';
 
-const SpotlightCard: React.FC<SpotlightCardProps> = ({ data = {}, onWatch, onInvest, testID }) => {
+const SpotlightCard: React.FC<SpotlightCardProps> = ({ data, onWatch, onInvest, testID }) => {
     const styles = makeStyles();
+    const safeData = data || {};
     const {
       imageUri = 'https://picsum.photos/200/300',
       title = "It’s Florida, Man.",
       subtitle = "Season 2 Premieres November 28",
       meta = "TV-MA • 1 Season",
       description = "All the gators, all the glory. Catch up before the madness multiplies.",
-    } = data;
+    } = safeData;
     return (
         <View>
                 {/* Spotlight image */}

@@ -78,6 +78,7 @@ export const makeStyles = () =>
           },
           galleryRowContainer: {
                 marginBottom: 40,
+                width: '100%',
             },
           galleryRowHeader: {
             color: "white",

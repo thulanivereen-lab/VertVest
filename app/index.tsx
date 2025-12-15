@@ -1,5 +1,5 @@
+import { Redirect } from 'expo-router';
 import React, { useEffect, useState } from 'react';
-import HomeScreen from './(tabs)/index';
 import AuthNavigator from './navigation/AuthNavigator';
 import { checkAuthStatus } from './utils/auth';
 
@@ -16,5 +16,5 @@ export default function Index() {
 
   if (isAuthenticated === null) return null; // or a loading spinner
 
-  return isAuthenticated ? <HomeScreen /> : <AuthNavigator />;
+  return isAuthenticated ? <Redirect href="/(tabs)" /> : <AuthNavigator />;
 }

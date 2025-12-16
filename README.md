@@ -1,50 +1,228 @@
-# Welcome to your Expo app 👋
+# Vert Vest
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A React Native content creation platform built with Expo.
 
-## Get started
+## Getting Started
 
-1. Install dependencies
+### Prerequisites
+- Node.js (v18+)
+- npm or yarn
+- Expo Go app on your device (for testing)
 
-   ```bash
-   npm install
-   ```
-
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+### Installation
 
 ```bash
-npm run reset-project
+# Install dependencies
+npm install
+
+# Start the development server
+npx expo start -c
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+### Running the App
+- **iOS Simulator**: Press `i` in the terminal
+- **Android Emulator**: Press `a` in the terminal
+- **Physical Device**: Scan the QR code with Expo Go
 
-## Learn more
+---
 
-To learn more about developing your project with Expo, look at the following resources:
+## Project Structure
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```
+vert-vest/
+├── app/                      # Expo Router (file-based routing)
+│   ├── (tabs)/               # Tab navigation screens
+│   ├── create/               # Create flow routes
+│   ├── _layout.tsx           # Root layout
+│   └── preview.tsx           # Component preview sandbox
+├── components/
+│   ├── shared/               # Reusable components (any feature)
+│   │   ├── FreeTextInput/
+│   │   ├── ContentTagsInput/
+│   │   └── AddTeamMember/
+│   ├── cms/                  # CMS-specific components
+│   │   └── TeamMemberCard/
+│   ├── create/               # Create flow components
+│   └── createSeries/         # Create Series components
+├── screens/                  # Screen components
+│   ├── HomeScreen/
+│   ├── CreateScreen/
+│   └── CreateSeriesScreen/
+├── context/                  # React Context providers
+│   └── SeriesForm/
+├── data/                     # Static data and constants
+│   └── CmsStrings.ts         # Centralized CMS strings
+├── styles/                   # Shared styles
+│   └── colors.ts             # NOTION color palette
+├── hooks/                    # Custom hooks
+└── docs/                     # Documentation
+    └── featureImplementationPlans/
+```
 
-## Join the community
+### Architecture Patterns
 
-Join our community of developers creating universal apps.
+**Folder-per-component:**
+```
+ComponentName/
+├── index.ts                  # Barrel export
+├── ComponentName.tsx         # Component
+├── ComponentName.styles.ts   # Styles
+├── ComponentName.types.ts    # TypeScript types
+└── hooks/                    # Component-specific hooks (optional)
+    └── useComponentName.ts
+```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+**Screen pattern:**
+```
+ScreenName/
+├── index.ts
+├── ScreenName.tsx            # Presentational component
+├── ScreenName.styles.ts
+└── useScreenName.ts          # Screen logic (handlers, state)
+```
+
+---
+
+## Development
+
+### Environment Variables
+
+Copy the example env file:
+```bash
+cp .env.example .env.local
+```
+
+Available variables:
+| Variable | Description |
+|----------|-------------|
+| `EXPO_PUBLIC_SHOW_PREVIEW` | Show "Preview Components" button (`true`/`false`) |
+
+### Component Preview Mode
+
+A sandbox screen for testing components during development.
+
+**To enable:**
+
+Option A - Inline:
+```bash
+EXPO_PUBLIC_SHOW_PREVIEW=true npx expo start -c
+```
+
+Option B - Via `.env.local`:
+```bash
+# In .env.local
+EXPO_PUBLIC_SHOW_PREVIEW=true
+```
+
+**To access:**
+1. Go to the Create tab
+2. Tap "Preview Components" button (only visible when enabled)
+
+**To add components to preview:**
+Edit `app/preview.tsx` and render your components with mock data.
+
+---
+
+## Styling
+
+We use a Notion-inspired color palette defined in `styles/colors.ts`:
+
+```typescript
+import { NOTION } from '@/styles';
+
+// Available colors:
+NOTION.background        // #FFFFFF
+NOTION.backgroundSecondary  // #F7F6F3
+NOTION.text              // #37352F
+NOTION.textSecondary     // #787774
+NOTION.border            // #E9E9E7
+NOTION.accent            // #2383E2
+NOTION.accentHover       // #1A6BC4
+NOTION.white             // #FFFFFF
+```
+
+---
+
+## Shared Components
+
+Reusable components for CMS flows. Import strings from `@/data/CmsStrings`.
+
+### FreeTextInput
+Text input with label and character count.
+```typescript
+import FreeTextInput, { InputType } from '@/components/shared/FreeTextInput';
+
+<FreeTextInput
+  title="Series Title"
+  placeholder="Enter title..."
+  value={value}
+  onChangeText={setValue}
+  maxLength={100}
+  inputType={InputType.TITLE}  // or InputType.DESCRIPTION
+  error={errorMessage}  // optional
+/>
+```
+
+### ContentTagsInput
+Tag input with pills and validation.
+```typescript
+import ContentTagsInput, { TagValidationError } from '@/components/shared/ContentTagsInput';
+
+<ContentTagsInput
+  title="Tags"
+  subtitle="Help viewers discover your content"
+  placeholder="Type a tag and press Enter"
+  tags={tags}
+  onAddTag={(tag) => setTags([...tags, tag])}
+  onRemoveTag={(index) => setTags(tags.filter((_, i) => i !== index))}
+  onValidationError={(error) => Alert.alert('Error', error)}
+  maxTags={10}
+  maxTagLength={50}
+/>
+```
+
+### AddTeamMember
+Input for adding team members.
+```typescript
+import AddTeamMember from '@/components/shared/AddTeamMember';
+
+<AddTeamMember
+  title="Add Team Member"
+  subtitle="Use @mention for existing members"
+  placeholder="@username or Full Name"
+  onAdd={(name) => addMember(name)}
+/>
+```
+
+### TeamMemberCard
+Card for managing team member role/access.
+```typescript
+import TeamMemberCard from '@/components/cms/TeamMemberCard';
+
+<TeamMemberCard
+  name="John Smith"
+  role={selectedRole}
+  access={selectedAccess}
+  roleOptions={[{ label: 'Director', value: 'director' }]}
+  accessOptions={[{ label: 'Editor', value: 'editor' }]}
+  onRoleChange={setSelectedRole}
+  onAccessChange={setSelectedAccess}
+  onRemove={() => removeMember(id)}
+/>
+```
+
+---
+
+## Documentation
+
+Feature implementation plans are in `docs/featureImplementationPlans/`:
+- `createSeriesCMS.md` - Create Series flow architecture
+- `sharedCmsComponents.md` - Shared CMS components spec
+
+---
+
+## Learn More
+
+- [Expo Documentation](https://docs.expo.dev/)
+- [Expo Router](https://docs.expo.dev/router/introduction/)
+- [React Native](https://reactnative.dev/)

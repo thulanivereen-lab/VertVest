@@ -47,9 +47,9 @@ export const useCreateSeriesScreen = () => {
         Alert.alert(
             'Publish Series',
             'Publishing functionality will be implemented here.',
-            [{ text: 'OK' }]
+            [{ text: 'OK', onPress: () => router.back() }]
         );
-    }, []);
+    }, [router]);
 
     return {
         // State

@@ -1,9 +1,5 @@
 import { StyleSheet } from 'react-native';
-
-const NOTION = {
-    background: '#FFFFFF',
-    backgroundSecondary: '#F7F6F3',
-};
+import { NOTION } from '@/styles';
 
 export const makeStyles = () =>
     StyleSheet.create({

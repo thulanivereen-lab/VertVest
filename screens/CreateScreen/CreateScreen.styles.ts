@@ -1,14 +1,8 @@
 import { Dimensions, StyleSheet } from 'react-native';
+import { NOTION } from '@/styles';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const MOBILE_BREAKPOINT = 768;
-
-// Notion-inspired color palette
-const NOTION = {
-    background: '#FFFFFF',
-    backgroundSecondary: '#F7F6F3',
-    text: '#37352F',
-};
 
 export const makeStyles = (widgetCount: number) => {
     const isMobile = SCREEN_WIDTH < MOBILE_BREAKPOINT;

@@ -1,15 +1,5 @@
 import { StyleSheet } from 'react-native';
-
-// Notion-inspired color palette
-const NOTION = {
-    background: '#FFFFFF',
-    backgroundHover: '#F7F6F3',
-    text: '#37352F',
-    textSecondary: '#787774',
-    border: '#E9E9E7',
-    accent: '#2383E2',
-    accentHover: '#1A6BC4',
-};
+import { NOTION } from '@/styles';
 
 export const makeStyles = () =>
     StyleSheet.create({
@@ -30,7 +20,7 @@ export const makeStyles = () =>
             width: 44,
             height: 44,
             borderRadius: 8,
-            backgroundColor: NOTION.backgroundHover,
+            backgroundColor: NOTION.backgroundSecondary,
             justifyContent: 'center',
             alignItems: 'center',
             marginBottom: 14,
@@ -59,7 +49,7 @@ export const makeStyles = () =>
             backgroundColor: NOTION.accentHover,
         },
         buttonText: {
-            color: '#FFFFFF',
+            color: NOTION.white,
             fontSize: 14,
             fontWeight: '500',
         },

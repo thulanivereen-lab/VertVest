@@ -1,13 +1,5 @@
 import { StyleSheet } from 'react-native';
-
-const NOTION = {
-    background: '#FFFFFF',
-    text: '#37352F',
-    accent: '#2383E2',
-    accentHover: '#1A6BC4',
-    border: '#E9E9E7',
-    backgroundSecondary: '#F7F6F3',
-};
+import { NOTION } from '@/styles';
 
 export const makeStyles = () =>
     StyleSheet.create({
@@ -49,7 +41,7 @@ export const makeStyles = () =>
         primaryButtonText: {
             fontSize: 16,
             fontWeight: '600',
-            color: '#FFFFFF',
+            color: NOTION.white,
         },
         buttonDisabled: {
             opacity: 0.5,

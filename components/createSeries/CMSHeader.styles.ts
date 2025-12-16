@@ -1,10 +1,5 @@
 import { StyleSheet } from 'react-native';
-
-const NOTION = {
-    background: '#FFFFFF',
-    text: '#37352F',
-    border: '#E9E9E7',
-};
+import { NOTION } from '@/styles';
 
 export const makeStyles = () =>
     StyleSheet.create({

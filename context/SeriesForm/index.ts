@@ -6,6 +6,7 @@ export {
     type CastCrewFormData,
     type DetailsFormData,
     type MediaFormData,
+    type PilotEpisodeFormData,
     type PricingFormData,
     type SeriesFormData,
     type SeriesFormContextValue,

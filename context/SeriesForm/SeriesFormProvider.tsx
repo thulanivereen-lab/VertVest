@@ -4,6 +4,7 @@ import {
     CastCrewFormData,
     DetailsFormData,
     MediaFormData,
+    PilotEpisodeFormData,
     PricingFormData,
     SeriesFormContextValue,
     SeriesFormData,
@@ -31,6 +32,13 @@ export const SeriesFormProvider: React.FC<SeriesFormProviderProps> = ({ children
         setFormData((prev) => ({
             ...prev,
             castCrew: { ...prev.castCrew, ...data },
+        }));
+    }, []);
+
+    const updatePilotEpisodeForm = useCallback((data: Partial<PilotEpisodeFormData>) => {
+        setFormData((prev) => ({
+            ...prev,
+            pilotEpisode: { ...prev.pilotEpisode, ...data },
         }));
     }, []);
 
@@ -105,6 +113,7 @@ export const SeriesFormProvider: React.FC<SeriesFormProviderProps> = ({ children
         formData,
         updateDetailsForm,
         updateCastCrewForm,
+        updatePilotEpisodeForm,
         updateMediaForm,
         updatePricingForm,
         goToNextStep,

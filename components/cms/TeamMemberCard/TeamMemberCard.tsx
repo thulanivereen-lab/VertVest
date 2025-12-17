@@ -6,7 +6,7 @@ import { TeamMemberCardProps, DropdownOption } from './TeamMemberCard.types';
 interface DropdownProps {
     label: string;
     value: string;
-    options: DropdownOption[];
+    options: readonly DropdownOption[];
     onChange: (value: string) => void;
 }
 

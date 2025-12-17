@@ -1,6 +1,7 @@
 import React, { ReactNode, useCallback, useState } from 'react';
 import { SeriesFormContext } from './SeriesFormContext';
 import {
+    CastCrewFormData,
     DetailsFormData,
     MediaFormData,
     PricingFormData,
@@ -23,6 +24,13 @@ export const SeriesFormProvider: React.FC<SeriesFormProviderProps> = ({ children
         setFormData((prev) => ({
             ...prev,
             details: { ...prev.details, ...data },
+        }));
+    }, []);
+
+    const updateCastCrewForm = useCallback((data: Partial<CastCrewFormData>) => {
+        setFormData((prev) => ({
+            ...prev,
+            castCrew: { ...prev.castCrew, ...data },
         }));
     }, []);
 
@@ -96,6 +104,7 @@ export const SeriesFormProvider: React.FC<SeriesFormProviderProps> = ({ children
         setCurrentStep,
         formData,
         updateDetailsForm,
+        updateCastCrewForm,
         updateMediaForm,
         updatePricingForm,
         goToNextStep,

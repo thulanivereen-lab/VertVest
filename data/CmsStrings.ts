@@ -70,6 +70,21 @@ export const CmsStrings = {
             placeholder: '@username or Full Name',
         },
     },
+    dropdownOptions: {
+        roles: [
+            { label: 'Director', value: 'director' },
+            { label: 'Producer', value: 'producer' },
+            { label: 'Writer', value: 'writer' },
+            { label: 'Actor', value: 'actor' },
+            { label: 'Editor', value: 'editor' },
+            { label: 'Cinematographer', value: 'cinematographer' },
+        ],
+        access: [
+            { label: 'Full Access', value: 'full' },
+            { label: 'Content Only', value: 'content' },
+            { label: 'Assets Only', value: 'assets' },
+        ],
+    },
 } as const;
 
 export type ContentType = keyof typeof CmsStrings;

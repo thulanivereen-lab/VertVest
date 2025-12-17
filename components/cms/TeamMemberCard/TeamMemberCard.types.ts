@@ -7,8 +7,8 @@ export interface TeamMemberCardProps {
     name: string;
     role: string;
     access: string;
-    roleOptions: DropdownOption[];
-    accessOptions: DropdownOption[];
+    roleOptions: readonly DropdownOption[];
+    accessOptions: readonly DropdownOption[];
     onRoleChange: (value: string) => void;
     onAccessChange: (value: string) => void;
     onRemove: () => void;

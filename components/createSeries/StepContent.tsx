@@ -1,10 +1,18 @@
-import { SeriesStep, useSeriesForm } from '@/context/SeriesForm';
+import {
+    SeriesStep,
+    SeriesTeamAssignment,
+    TeamMember,
+    useSeriesForm,
+} from '@/context/SeriesForm';
+import * as Crypto from 'expo-crypto';
 import React from 'react';
 import { Text, View } from 'react-native';
 import { makeStyles } from './StepContent.styles';
 import type { StepContentProps } from './StepContent.types';
 import FreeTextInput, { InputType } from '@/components/shared/FreeTextInput';
 import ContentTagsInput from '@/components/shared/ContentTagsInput';
+import AddTeamMember from '@/components/shared/AddTeamMember';
+import TeamMemberCard from '@/components/cms/TeamMemberCard';
 import { CmsStrings } from '@/data/CmsStrings';
 
 const DetailsStep: React.FC = () => {
@@ -59,19 +67,84 @@ const DetailsStep: React.FC = () => {
 
 const Details2Step: React.FC = () => {
     const styles = makeStyles();
+    const { formData, updateCastCrewForm } = useSeriesForm();
+    const { castCrew } = formData;
+
+    const getMemberName = (memberId: string): string => {
+        const member = castCrew.teamMembers.find((m) => m.id === memberId);
+        return member?.name || 'Unknown';
+    };
+
+    const handleAddMember = (name: string) => {
+        const memberId = Crypto.randomUUID();
+
+        const newMember: TeamMember = {
+            id: memberId,
+            name,
+        };
+
+        const newAssignment: SeriesTeamAssignment = {
+            memberId,
+            role: '',
+            access: '',
+        };
+
+        updateCastCrewForm({
+            teamMembers: [...castCrew.teamMembers, newMember],
+            assignments: [...castCrew.assignments, newAssignment],
+        });
+    };
+
+    const handleRemoveMember = (memberId: string) => {
+        updateCastCrewForm({
+            teamMembers: castCrew.teamMembers.filter((m) => m.id !== memberId),
+            assignments: castCrew.assignments.filter((a) => a.memberId !== memberId),
+        });
+    };
+
+    const handleRoleChange = (memberId: string, role: string) => {
+        updateCastCrewForm({
+            assignments: castCrew.assignments.map((a) =>
+                a.memberId === memberId ? { ...a, role } : a
+            ),
+        });
+    };
+
+    const handleAccessChange = (memberId: string, access: string) => {
+        updateCastCrewForm({
+            assignments: castCrew.assignments.map((a) =>
+                a.memberId === memberId ? { ...a, access } : a
+            ),
+        });
+    };
+
     return (
         <View style={styles.stepContainer}>
-            <Text style={styles.placeholderTitle}>Additional Details</Text>
+            <Text style={styles.placeholderTitle}>Cast & Crew</Text>
             <Text style={styles.placeholderText}>
-                Provide additional information about your series to help viewers discover and understand your content.
+                Add your cast and crew members and set their access permissions
             </Text>
-            <View style={styles.placeholderBox}>
-                <Text style={styles.placeholderBoxText}>
-                    Additional form components will be added here:{'\n'}
-                    Genre selection, Target audience,{'\n'}
-                    Content warnings, Release schedule
-                </Text>
-            </View>
+
+            <AddTeamMember
+                title={CmsStrings.series.teamMember.title}
+                subtitle={CmsStrings.series.teamMember.subtitle}
+                placeholder={CmsStrings.series.teamMember.placeholder}
+                onAdd={handleAddMember}
+            />
+
+            {castCrew.assignments.map((assignment) => (
+                <TeamMemberCard
+                    key={assignment.memberId}
+                    name={getMemberName(assignment.memberId)}
+                    role={assignment.role}
+                    access={assignment.access}
+                    roleOptions={CmsStrings.dropdownOptions.roles}
+                    accessOptions={CmsStrings.dropdownOptions.access}
+                    onRoleChange={(role) => handleRoleChange(assignment.memberId, role)}
+                    onAccessChange={(access) => handleAccessChange(assignment.memberId, access)}
+                    onRemove={() => handleRemoveMember(assignment.memberId)}
+                />
+            ))}
         </View>
     );
 };

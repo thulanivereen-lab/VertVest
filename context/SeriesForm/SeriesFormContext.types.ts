@@ -29,8 +29,28 @@ export interface PricingFormData {
     subscriptionPeriod?: 'monthly' | 'yearly';
 }
 
+// Team member (represents a user - could come from backend later)
+export interface TeamMember {
+    id: string; // UUID
+    name: string;
+}
+
+// Assignment linking a member to THIS series with role/access
+export interface SeriesTeamAssignment {
+    memberId: string; // references TeamMember.id
+    role: string;
+    access: string;
+}
+
+// Form data for cast & crew step
+export interface CastCrewFormData {
+    teamMembers: TeamMember[]; // list of members (for lookup)
+    assignments: SeriesTeamAssignment[]; // role/access per member for this series
+}
+
 export interface SeriesFormData {
     details: DetailsFormData;
+    castCrew: CastCrewFormData;
     media: MediaFormData;
     pricing: PricingFormData;
 }
@@ -41,6 +61,7 @@ export interface SeriesFormContextValue {
     setCurrentStep: (step: SeriesStep) => void;
     formData: SeriesFormData;
     updateDetailsForm: (data: Partial<DetailsFormData>) => void;
+    updateCastCrewForm: (data: Partial<CastCrewFormData>) => void;
     updateMediaForm: (data: Partial<MediaFormData>) => void;
     updatePricingForm: (data: Partial<PricingFormData>) => void;
     goToNextStep: () => void;
@@ -58,6 +79,10 @@ export const initialFormData: SeriesFormData = {
         description: '',
         category: '',
         tags: [],
+    },
+    castCrew: {
+        teamMembers: [],
+        assignments: [],
     },
     media: {
         coverImage: null,

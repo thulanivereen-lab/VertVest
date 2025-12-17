@@ -13,6 +13,7 @@ import FreeTextInput, { InputType } from '@/components/shared/FreeTextInput';
 import ContentTagsInput from '@/components/shared/ContentTagsInput';
 import AddTeamMember from '@/components/shared/AddTeamMember';
 import TeamMemberCard from '@/components/cms/TeamMemberCard';
+import ReviewSection from '@/components/shared/ReviewSection';
 import UploadEpisode from '@/modules/UploadEpisode';
 import { CmsStrings } from '@/data/CmsStrings';
 
@@ -183,19 +184,101 @@ const MediaStep: React.FC = () => {
 
 const ReviewStep: React.FC = () => {
     const styles = makeStyles();
+    const { formData, setCurrentStep } = useSeriesForm();
+    const { details, castCrew, pilotEpisode } = formData;
+
+    const getRoleLabel = (value: string) =>
+        CmsStrings.dropdownOptions.roles.find((r) => r.value === value)?.label || value;
+    const getAccessLabel = (value: string) =>
+        CmsStrings.dropdownOptions.access.find((a) => a.value === value)?.label || value;
+
+    const getMemberName = (memberId: string) =>
+        castCrew.teamMembers.find((m) => m.id === memberId)?.name || 'Unknown';
+
     return (
         <View style={styles.stepContainer}>
-            <Text style={styles.placeholderTitle}>Review & Publish</Text>
-            <Text style={styles.placeholderText}>
-                Review all the information you&apos;ve entered before publishing your series.
+            <Text style={styles.reviewTitle}>Review & Publish</Text>
+            <Text style={styles.reviewSubtitle}>
+                Review your series details before publishing
             </Text>
-            <View style={styles.placeholderBox}>
-                <Text style={styles.placeholderBoxText}>
-                    Review summary will be shown here:{'\n'}
-                    Series details preview, Media preview,{'\n'}
-                    Edit buttons for each section
-                </Text>
-            </View>
+
+            {/* Series Details Section */}
+            <ReviewSection
+                title="Series Details"
+                onEdit={() => setCurrentStep(SeriesStep.DETAILS)}
+            >
+                <View style={styles.field}>
+                    <Text style={styles.fieldLabel}>Title</Text>
+                    <Text style={styles.fieldValue}>{details.title || '—'}</Text>
+                </View>
+                <View style={styles.field}>
+                    <Text style={styles.fieldLabel}>Description</Text>
+                    <Text style={styles.fieldValue}>{details.description || '—'}</Text>
+                </View>
+                <View style={styles.tagsContainer}>
+                    <Text style={styles.fieldLabel}>Tags</Text>
+                    {details.tags.length > 0 ? (
+                        <View style={styles.tagsList}>
+                            {details.tags.map((tag, i) => (
+                                <View key={i} style={styles.tag}>
+                                    <Text style={styles.tagText}>{tag}</Text>
+                                </View>
+                            ))}
+                        </View>
+                    ) : (
+                        <Text style={styles.emptyText}>No tags added</Text>
+                    )}
+                </View>
+            </ReviewSection>
+
+            {/* Cast & Crew Section */}
+            <ReviewSection
+                title="Cast & Crew"
+                onEdit={() => setCurrentStep(SeriesStep.DETAILS2)}
+            >
+                {castCrew.assignments.length > 0 ? (
+                    castCrew.assignments.map((assignment) => (
+                        <View key={assignment.memberId} style={styles.memberItem}>
+                            <Text style={styles.memberText}>
+                                • {getMemberName(assignment.memberId)}
+                                {assignment.role ? ` - ${getRoleLabel(assignment.role)}` : ''}
+                                {assignment.access ? ` (${getAccessLabel(assignment.access)})` : ''}
+                            </Text>
+                        </View>
+                    ))
+                ) : (
+                    <Text style={styles.emptyText}>No team members added</Text>
+                )}
+            </ReviewSection>
+
+            {/* Pilot Episode Section */}
+            <ReviewSection
+                title="Pilot Episode"
+                onEdit={() => setCurrentStep(SeriesStep.MEDIA)}
+            >
+                <View style={styles.field}>
+                    <Text style={styles.fieldLabel}>Title</Text>
+                    <Text style={styles.fieldValue}>{pilotEpisode.title || '—'}</Text>
+                </View>
+                <View style={styles.field}>
+                    <Text style={styles.fieldLabel}>Description</Text>
+                    <Text style={styles.fieldValue}>{pilotEpisode.description || '—'}</Text>
+                </View>
+                <View style={styles.mediaStatus}>
+                    <View style={styles.mediaItem}>
+                        <Text style={styles.fieldLabel}>Video</Text>
+                        <Text style={pilotEpisode.videoUri ? styles.uploaded : styles.notUploaded}>
+                            {pilotEpisode.videoUri ? '✓ Uploaded' : '✗ Not uploaded'}
+                        </Text>
+                    </View>
+                    <View style={styles.mediaItem}>
+                        <Text style={styles.fieldLabel}>Thumbnail</Text>
+                        <Text style={pilotEpisode.thumbnailUri ? styles.uploaded : styles.notUploaded}>
+                            {pilotEpisode.thumbnailUri ? '✓ Uploaded' : '✗ Not uploaded'}
+                        </Text>
+                    </View>
+                </View>
+            </ReviewSection>
         </View>
     );
 };

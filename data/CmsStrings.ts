@@ -47,6 +47,28 @@ export const CmsStrings = {
             subtitle: 'Use @mention to link existing platform members or just type the name if not a member',
             placeholder: '@username or Full Name',
         },
+        upload: {
+            pilot: {
+                title: 'Pilot Episode',
+                subtitle: 'Upload your first episode',
+            },
+            regular: {
+                title: 'New Episode',
+                subtitle: 'Add to an existing series',
+            },
+            seriesDropdown: {
+                label: 'Select Series',
+                placeholder: 'Choose a series...',
+            },
+            video: {
+                title: 'Upload Video',
+                description: 'Upload your video',
+            },
+            thumbnail: {
+                title: 'Upload Thumbnail',
+                description: 'Upload your episode thumbnail',
+            },
+        },
     },
     asset: {
         title: {

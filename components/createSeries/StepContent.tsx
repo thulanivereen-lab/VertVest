@@ -13,6 +13,7 @@ import FreeTextInput, { InputType } from '@/components/shared/FreeTextInput';
 import ContentTagsInput from '@/components/shared/ContentTagsInput';
 import AddTeamMember from '@/components/shared/AddTeamMember';
 import TeamMemberCard from '@/components/cms/TeamMemberCard';
+import UploadEpisode from '@/modules/UploadEpisode';
 import { CmsStrings } from '@/data/CmsStrings';
 
 const DetailsStep: React.FC = () => {
@@ -151,19 +152,31 @@ const Details2Step: React.FC = () => {
 
 const MediaStep: React.FC = () => {
     const styles = makeStyles();
+    const { formData, updatePilotEpisodeForm } = useSeriesForm();
+    const { pilotEpisode } = formData;
+
+    const handleUploadVideo = () => {
+        // TODO: Implement video picker
+        console.log('Upload video');
+    };
+
+    const handleUploadThumbnail = () => {
+        // TODO: Implement image picker
+        console.log('Upload thumbnail');
+    };
+
     return (
         <View style={styles.stepContainer}>
-            <Text style={styles.placeholderTitle}>Media Assets</Text>
-            <Text style={styles.placeholderText}>
-                Upload your cover image, trailer video, and additional thumbnails for your series.
-            </Text>
-            <View style={styles.placeholderBox}>
-                <Text style={styles.placeholderBoxText}>
-                    Media upload components will be added here:{'\n'}
-                    Cover image picker, Trailer video picker,{'\n'}
-                    Thumbnail gallery
-                </Text>
-            </View>
+            <UploadEpisode
+                isPilot
+                data={{
+                    title: pilotEpisode.title,
+                    description: pilotEpisode.description,
+                }}
+                onDataChange={(data) => updatePilotEpisodeForm(data)}
+                onUploadVideo={handleUploadVideo}
+                onUploadThumbnail={handleUploadThumbnail}
+            />
         </View>
     );
 };

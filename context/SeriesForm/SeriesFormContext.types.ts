@@ -48,9 +48,18 @@ export interface CastCrewFormData {
     assignments: SeriesTeamAssignment[]; // role/access per member for this series
 }
 
+// Form data for pilot episode step
+export interface PilotEpisodeFormData {
+    title: string;
+    description: string;
+    videoUri: string | null;
+    thumbnailUri: string | null;
+}
+
 export interface SeriesFormData {
     details: DetailsFormData;
     castCrew: CastCrewFormData;
+    pilotEpisode: PilotEpisodeFormData;
     media: MediaFormData;
     pricing: PricingFormData;
 }
@@ -62,6 +71,7 @@ export interface SeriesFormContextValue {
     formData: SeriesFormData;
     updateDetailsForm: (data: Partial<DetailsFormData>) => void;
     updateCastCrewForm: (data: Partial<CastCrewFormData>) => void;
+    updatePilotEpisodeForm: (data: Partial<PilotEpisodeFormData>) => void;
     updateMediaForm: (data: Partial<MediaFormData>) => void;
     updatePricingForm: (data: Partial<PricingFormData>) => void;
     goToNextStep: () => void;
@@ -83,6 +93,12 @@ export const initialFormData: SeriesFormData = {
     castCrew: {
         teamMembers: [],
         assignments: [],
+    },
+    pilotEpisode: {
+        title: '',
+        description: '',
+        videoUri: null,
+        thumbnailUri: null,
     },
     media: {
         coverImage: null,

@@ -1,24 +1,58 @@
-import { SeriesStep } from '@/context/SeriesForm';
+import { SeriesStep, useSeriesForm } from '@/context/SeriesForm';
 import React from 'react';
 import { Text, View } from 'react-native';
 import { makeStyles } from './StepContent.styles';
 import type { StepContentProps } from './StepContent.types';
+import FreeTextInput, { InputType } from '@/components/shared/FreeTextInput';
+import ContentTagsInput from '@/components/shared/ContentTagsInput';
+import { CmsStrings } from '@/data/CmsStrings';
 
 const DetailsStep: React.FC = () => {
     const styles = makeStyles();
+    const { formData, updateDetailsForm } = useSeriesForm();
+    const { details } = formData;
+
+    const handleAddTag = (tag: string) => {
+        updateDetailsForm({ tags: [...details.tags, tag] });
+    };
+
+    const handleRemoveTag = (index: number) => {
+        updateDetailsForm({
+            tags: details.tags.filter((_, i) => i !== index),
+        });
+    };
+
     return (
         <View style={styles.stepContainer}>
             <Text style={styles.placeholderTitle}>Series Details</Text>
-            <Text style={styles.placeholderText}>
-                Enter the basic information about your series including title, description, category, and tags.
-            </Text>
-            <View style={styles.placeholderBox}>
-                <Text style={styles.placeholderBoxText}>
-                    Form components will be added here:{'\n'}
-                    Title input, Description textarea,{'\n'}
-                    Category selector, Tags input
-                </Text>
-            </View>
+            <Text style={styles.placeholderText}>Tell us about your series</Text>
+
+            <FreeTextInput
+                title={CmsStrings.series.title.label}
+                placeholder={CmsStrings.series.title.placeholder}
+                value={details.title}
+                onChangeText={(title) => updateDetailsForm({ title })}
+                maxLength={CmsStrings.series.title.maxLength}
+                inputType={InputType.TITLE}
+            />
+
+            <FreeTextInput
+                title={CmsStrings.series.description.label}
+                placeholder={CmsStrings.series.description.placeholder}
+                value={details.description}
+                onChangeText={(description) => updateDetailsForm({ description })}
+                maxLength={CmsStrings.series.description.maxLength}
+                inputType={InputType.DESCRIPTION}
+            />
+
+            <ContentTagsInput
+                title={CmsStrings.series.tags.title}
+                subtitle={CmsStrings.series.tags.subtitle}
+                placeholder={CmsStrings.series.tags.placeholder}
+                tags={details.tags}
+                onAddTag={handleAddTag}
+                onRemoveTag={handleRemoveTag}
+            />
         </View>
     );
 };

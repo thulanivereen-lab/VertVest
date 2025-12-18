@@ -19,6 +19,7 @@ export default function RootLayout() {
         <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
         <Stack.Screen name="create/series" options={{ headerShown: false }} />
         <Stack.Screen name="preview" options={{ headerShown: false }} />
+        <Stack.Screen name="createEpisode" options={{ headerShown: false }} />
       </Stack>
       <StatusBar style="auto" />
     </ThemeProvider>

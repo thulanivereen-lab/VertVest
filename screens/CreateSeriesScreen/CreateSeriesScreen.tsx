@@ -3,9 +3,9 @@ import { ScrollView, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import CMSHeader from '@/components/createSeries/CMSHeader';
-import ProgressBar from '@/components/createSeries/ProgressBar';
-import ButtonNavigation from '@/components/createSeries/ButtonNavigation';
 import StepContent from '@/components/createSeries/StepContent';
+import ButtonNavigation from '@/components/shared/ButtonNavigation';
+import ProgressBar from '@/components/shared/ProgressBar';
 
 import { makeStyles } from './CreateSeriesScreen.styles';
 import { useCreateSeriesScreen } from './useCreateSeriesScreen';

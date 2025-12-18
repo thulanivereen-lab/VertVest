@@ -2,6 +2,7 @@ import { useCallback } from 'react';
 import { Alert } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useSeriesForm, TOTAL_STEPS } from '@/context/SeriesForm';
+import { useButtonNavigation } from '@/components/shared/ButtonNavigation';
 
 export const useCreateSeriesScreen = () => {
     const router = useRouter();
@@ -34,22 +35,20 @@ export const useCreateSeriesScreen = () => {
         );
     }, [router, saveDraft]);
 
-    const handleBack = useCallback(() => {
-        goToPreviousStep();
-    }, [goToPreviousStep]);
-
-    const handleContinue = useCallback(() => {
-        goToNextStep();
-    }, [goToNextStep]);
-
-    const handlePublish = useCallback(() => {
-        // TODO: Implement publish logic
-        Alert.alert(
-            'Publish Series',
-            'Publishing functionality will be implemented here.',
-            [{ text: 'OK', onPress: () => router.back() }]
-        );
-    }, [router]);
+    const { handleBack, handleContinue, handlePublish } = useButtonNavigation({
+        currentStep,
+        totalSteps: TOTAL_STEPS,
+        onBack: goToPreviousStep,
+        onContinue: goToNextStep,
+        onPublish: () => {
+            // TODO: Implement publish logic
+            Alert.alert(
+                'Publish Series',
+                'Publishing functionality will be implemented here.',
+                [{ text: 'OK', onPress: () => router.back() }]
+            );
+        },
+    });
 
     return {
         // State

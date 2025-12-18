@@ -21,8 +21,7 @@ export const useCreateScreen = () => {
                 router.push('/create/series' as Href);
                 break;
             case CreateType.EPISODE:
-                // TODO: router.push('/create/episode');
-                Alert.alert('Add Episode', 'Navigate to episode creation flow');
+                router.push('/createEpisode' as Href);
                 break;
             case CreateType.PRODUCT:
                 // TODO: router.push('/create/product');

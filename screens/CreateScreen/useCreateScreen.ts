@@ -1,5 +1,4 @@
 import { useCallback } from 'react';
-import { Alert } from 'react-native';
 import { Href, useRouter } from 'expo-router';
 import { CreateType } from '@/components/create/CreateWidget.types';
 
@@ -24,8 +23,7 @@ export const useCreateScreen = () => {
                 router.push('/createEpisode' as Href);
                 break;
             case CreateType.PRODUCT:
-                // TODO: router.push('/create/product');
-                Alert.alert('Create Product', 'Navigate to product creation flow');
+                router.push('/createAsset' as Href);
                 break;
         }
     }, [router]);
